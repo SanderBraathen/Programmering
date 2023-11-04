@@ -18,8 +18,8 @@ def create_compact_cloud():
         (3, -5, 0),  (1, 1, 0)
     ]
     ellipsoid_sizes = [
-        (2.5, 2), (2.8, 3), (3.2, 3.5), (3.5, 4), (2.7, 3), 
-        (3.1, 3), (2.9, 3.5), (3.3, 3.2)  # Varied sizes for each ellipsoid (X, Y radii)
+        (2.5, 2), (2.8, 3), (4, 3.5), (3.5, 4), (2.7, 3), 
+        (3.1, 3), (5, 3.5), (3.3, 3.2)  # Varied sizes for each ellipsoid (X, Y radii)
     ]
 
     # Loop to create and union ellipsoids at the defined points and sizes
