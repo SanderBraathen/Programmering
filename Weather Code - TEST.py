@@ -1,52 +1,37 @@
-#Test denne, printer blokkbokstaver.
+#DENNE SKAL FUNKE; 
 
 import requests
-from stl import mesh
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits import mplot3d
-from text_to_3d import text_to_3d_mesh  # Assume we have a separate module for generating 3D text mesh
 
-# Constants
-API_KEY = '39250c09f010b7036f570d85f79cd3f3'  # Replace with your OpenWeatherMap API key
-BASE_URL = 'http://api.openweathermap.org/data/2.5/weather'
+def get_weather(city):
+    api_key = 'Your_OpenWeather_API_Key'
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={city},NO&appid={api_key}"
+    response = requests.get(url)
+    return response.json()
 
-# Ask the user for a city
-city = input('Enter a city in Norway: ')
-
-# Fetch weather data from OpenWeatherMap
-response = requests.get(f'{BASE_URL}?q={city},NO&appid={API_KEY}')
-weather_data = response.json()
-
-# Check for successful response
-if response.status_code == 200:
-    # Get the main weather condition
-    main_condition = weather_data['weather'][0]['main'].upper()
-    if main_condition in ['CLEAR', 'CLOUDS', 'SNOW', 'RAIN']:
-        condition_map = {'CLEAR': 'SUN', 'CLOUDS': 'CLOUDY', 'SNOW': 'SNOW', 'RAIN': 'RAIN'}
-        weather_condition = condition_map[main_condition]
-        print(f"The weather in {city} is {weather_condition.lower()}.")
+def select_stl_file(weather_data):
+    main_weather = weather_data['weather'][0]['main']
+    if main_weather == 'Clear':
+        return 'path/to/sun.stl'
+    elif main_weather == 'Rain' or main_weather == 'Drizzle':
+        return 'path/to/rain.stl'
+    elif main_weather == 'Snow':
+        return 'path/to/snow.stl'
     else:
-        print("The weather condition is not one of the specified types.")
-else:
-    print("Failed to retrieve weather data.")
+        return 'path/to/cloud.stl'
 
-# Generate 3D mesh from text
-weather_mesh = text_to_3d_mesh(weather_condition)
+def save_stl_file(file_path, save_path):
+    with open(file_path, 'rb') as file:
+        content = file.read()
+    with open(save_path, 'wb') as file:
+        file.write(content)
+    print(f"STL file saved as {save_path}")
 
-# Create a new plot
-figure = plt.figure()
-ax = mplot3d.Axes3D(figure)
+def main():
+    city = input("Enter a city in Norway: ")
+    weather_data = get_weather(city)
+    stl_file_path = select_stl_file(weather_data)
+    save_path = 'your/desired/save/location/output.stl'
+    save_stl_file(stl_file_path, save_path)
 
-# Load the STL file and add the vectors to the plot
-ax.add_collection3d(mplot3d.art3d.Poly3DCollection(weather_mesh.vectors))
-
-# Auto scale to the mesh size
-scale = weather_mesh.points.flatten()
-ax.auto_scale_xyz(scale, scale, scale)
-
-# Show the plot to the screen
-plt.show()
-
-# Save the 3D model to an STL file
-weather_mesh.save(f'{weather_condition}.stl')
+if __name__ == "__main__":
+    main()
