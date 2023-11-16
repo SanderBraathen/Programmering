@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Nov  2 18:23:39 2023
-
-@author: sande
-"""
-
 import cadquery as cq
 
 def create_compact_cloud():
@@ -32,7 +25,11 @@ def create_compact_cloud():
         )
         cloud = cloud.union(ellipsoid)
 
-    # Export the compact cloud as an STL file
-    cloud.val().exportStl("compact_cloud.stl")
+    # Scale the entire cloud by 4 times
+    scaled_cloud = cloud.val().scale(4)
+
+    # Export the scaled compact cloud as an STL file
+    cq.exporters.export(scaled_cloud, "scaled_compact_cloud.stl")
 
 create_compact_cloud()
+print("Scaled compact cloud model created and exported as scaled_compact_cloud.stl")

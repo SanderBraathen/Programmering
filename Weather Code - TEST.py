@@ -11,13 +11,13 @@ def get_weather(city):
 def select_stl_file(weather_data):
     main_weather = weather_data['weather'][0]['main']
     if main_weather == 'Clear':
-        return 'path/to/sun.stl'
+        return 'C:\\Users\\sande\\Documents\\GitHub\\Programmering\\sunStl.stl'
     elif main_weather == 'Rain' or main_weather == 'Drizzle':
-        return 'path/to/rain.stl'
+        return 'C:\\Users\\sande\\Documents\\GitHub\\Programmering\\sunStl.stl'
     elif main_weather == 'Snow':
-        return 'path/to/snow.stl'
+        return 'C:\\Users\\sande\\Documents\\GitHub\\Programmering\\sunStl.stl'
     else:
-        return 'path/to/cloud.stl'
+        return 'C:\\Users\\sande\\Documents\\GitHub\\Programmering\\sunStl.stl'
 
 def save_stl_file(file_path, save_path):
     with open(file_path, 'rb') as file:
@@ -30,7 +30,7 @@ def main():
     city = input("Enter a city in Norway: ")
     weather_data = get_weather(city)
     stl_file_path = select_stl_file(weather_data)
-    save_path = 'your/desired/save/location/output.stl'
+    save_path = 'C:\\Users\\sande\\OneDrive\\Skrivebord\\savings'
     save_stl_file(stl_file_path, save_path)
 
 if __name__ == "__main__":

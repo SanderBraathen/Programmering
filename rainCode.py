@@ -1,13 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Nov  8 12:00:17 2023
-
-@author: sande
-"""
-
 import cadquery as cq
 
-def create_scaled_cartoon_water_drop(thickness=1.0, scale_factor=3.0):
+def create_rain(thickness=1.0, scale_factor=3.0):
     # Points to define the profile of the half water drop
     points = [
         (0, 0),  # Bottom of the drop
@@ -24,8 +17,24 @@ def create_scaled_cartoon_water_drop(thickness=1.0, scale_factor=3.0):
         .close()  # Close the path to make a proper wire for extrusion
     )
 
-    # Extrude and export the first half
+    # Extrude the first half
     half_drop = drop_profile.extrude(thickness)
-    half_drop.val().exportStl("scaled_half_cartoon_water_drop.stl")
 
-create_scaled_cartoon_water_drop()
+    # Mirror the half drop along the YZ-axis to create the other half
+    other_half_drop = half_drop.mirror("YZ")
+
+    # Combine the two halves to form a complete water drop
+    complete_drop = half_drop.union(other_half_drop)
+
+    # Scale the complete water drop by 4 times
+    scaled_drop = complete_drop.val().scale(4)
+
+    # Export the scaled complete water drop as an STL file
+    cq.exporters.export(scaled_drop, "Rain.stl")
+
+create_rain()
+print("It's a terrible day for rain. Exported as Rain.stl")
+
+#This code uses scaling, as the file was hard to make initially.
+
+
