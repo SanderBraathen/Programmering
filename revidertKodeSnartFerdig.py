@@ -188,7 +188,7 @@ def generate_model(city):
         else:
             messagebox.showinfo("Info", "Weather condition not recognized.")
     except Exception as e:
-        messagebox.showerror(c)
+        messagebox.showerror("Error", f"Failed to generate model: {e}")
 
 # for UI to keep running while the code works with an input
 def on_submit(city_name):
