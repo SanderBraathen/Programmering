@@ -184,7 +184,7 @@ def generate_model(city):
             messagebox.showinfo("Info", "Seems cloudy. Cloud model generated. Exported as Cloud.stl")
         elif main_weather == 'Snow':
             create_snow()
-            messagebox.showinfo("Info", "Brr, it's snowy! Bring your coat. Snowflake model generated. Exported as Snowflake.stl")
+            messagebox.showinfo("Info","Brr,it's snowy! Bring your coat.Snowflake model generated.Exported as Snowflake.stl")
         else:
             messagebox.showinfo("Info", "Weather condition not recognized.")
     except Exception as e:
