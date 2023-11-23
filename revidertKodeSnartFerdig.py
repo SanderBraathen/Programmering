@@ -5,7 +5,9 @@ Created on Sat Nov 18 15:35:45 2023
 @author: sande
 """
 
-import tkinter as tk
+#WEATHER API CODE: 
+
+import tkinter as tk #Imported to create a friendly user interface. 
 from tkinter import messagebox, ttk
 import threading
 import requests
@@ -165,7 +167,7 @@ def enhance_ui(root):
 
     return entry_city
 
-# statements to call correct function
+# statements to call correct weather function
 def generate_model(city):
     try:
         weather_data = get_weather(city)
@@ -182,7 +184,7 @@ def generate_model(city):
             messagebox.showinfo("Info", "Seems cloudy. Cloud model generated. Exported as Cloud.stl")
         elif main_weather == 'Snow':
             create_snow()
-            messagebox.showinfo("Info", "Brr, it's snowy! Bring your coat. Snowflake model generated. Exported as Snowflake.stl")
+            messagebox.showinfo("Info","Brr,it's snowy! Bring your coat.Snowflake model generated.Exported as Snowflake.stl")
         else:
             messagebox.showinfo("Info", "Weather condition not recognized.")
     except Exception as e:
@@ -195,7 +197,7 @@ def on_submit(city_name):
     else:
         messagebox.showerror("Error", "Please enter a city name.")
 
-# Tkinter UI setup
+# Tkinter UI setup, opens a pop-up for the user to type an input. 
 root = tk.Tk()
 city_entry = enhance_ui(root)  # Call the UI with function
 root.mainloop()
